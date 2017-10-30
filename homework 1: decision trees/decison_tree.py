@@ -33,16 +33,17 @@ class DecisionTree():
         best_dim = 0   
         best_index = 0  
         data_best_dim_sorted = []
-          
+                  
         for dim in range(len(data[0])-1):
+            #sort by position in chosen dimension
             data_dim_sorted = sorted(data, key= lambda x: x[dim])
             y_dim_sorted = [row[3] for row in data_dim_sorted]  
+            #test the change in label-purity for every possible way to split the data set in two                        
             for i in range(len(y_dim_sorted)):
                 y_left = y_dim_sorted[0:i]
                 y_right = y_dim_sorted[i:-1]
                 gini_ch = self._weighted_gini_change(y_dim_sorted, y_left, y_right)
                 if gini_ch > best_gini_ch:
-                    #print('NEW best ch. dim:{} index:{}'.format(dim, i)) 
                     best_gini_ch = gini_ch
                     best_index = i
                     best_dim = dim
